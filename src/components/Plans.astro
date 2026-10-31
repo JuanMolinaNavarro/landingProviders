@@ -1,0 +1,246 @@
+---
+import { Check } from '@lucide/astro';
+
+const plans = [
+  {
+    name: 'Básico',
+    price: '$29.900',
+    speed: '300 Mbps',
+    description: 'Conectividad simétrica para oficinas pequeñas y comercios.',
+    features: ['IP fija incluida', 'Soporte en horario comercial', 'Instalación profesional'],
+    featured: false,
+    span: 1,
+  },
+  {
+    name: 'Pro',
+    price: '$79.900',
+    speed: '1 Gbps',
+    description: 'La opción ideal para empresas medianas y equipos distribuidos.',
+    features: ['IP fija /29 incluida', 'Soporte 24/7 prioritario', 'SLA 99.9% garantizado', 'Router empresarial', 'Gestión de red incluida'],
+    featured: true,
+    span: 2,
+  },
+  {
+    name: 'Enterprise',
+    price: 'A medida',
+    speed: 'Custom',
+    description: 'Velocidad y SLA dedicado para infraestructura crítica.',
+    features: ['Enlace dedicado', 'SLA 99.99%', 'Account manager'],
+    featured: false,
+    span: 1,
+  },
+];
+---
+<section class="plans-section" id="planes">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">PLANES</p>
+      <h2 class="section-title">Conectividad para cada etapa</h2>
+      <p class="section-sub">Elegí el plan que se ajusta a tu negocio. Todos incluyen fibra simétrica.</p>
+    </div>
+
+    <div class="bento">
+      {plans.map((plan) => (
+        <article class={`card${plan.featured ? ' featured' : ''}`} style={`grid-column: span ${plan.span};`}>
+          {plan.featured && <span class="popular-badge">Más popular</span>}
+          <div class="card-head">
+            <h3 class="plan-name">{plan.name}</h3>
+            <p class="plan-desc">{plan.description}</p>
+          </div>
+
+          <div class="plan-speed">{plan.speed}</div>
+          <div class="plan-price">
+            <span class="price-amount">{plan.price}</span>
+            <span class="price-period">/ mes</span>
+          </div>
+
+          <ul class="features-list">
+            {plan.features.map((f) => (
+              <li>
+                <Check size={16} strokeWidth={2.5} />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a href="#contratar" class={`plan-cta${plan.featured ? ' primary' : ''}`}>
+            {plan.featured ? 'Contratar Pro' : 'Elegir plan'}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .plans-section {
+    padding: 96px 0;
+    background: transparent;
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--color-primary);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .section-sub {
+    color: var(--color-text-muted);
+    max-width: 480px;
+    font-size: 16px;
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+    padding: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card.featured {
+    background: var(--glass-bg-strong);
+    box-shadow: var(--glass-shadow), 0 0 0 1.5px rgba(55, 138, 221, 0.45);
+    transform: translateY(-8px);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-primary-sm);
+  }
+
+  .plan-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .plan-desc {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  .plan-speed {
+    font-size: clamp(36px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: -0.03em;
+  }
+  .card.featured .plan-speed { color: var(--color-secondary); }
+
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .price-amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .price-period {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+
+  .features-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--color-text);
+  }
+  .features-list li :global(svg) {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    padding: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.9),
+      0 2px 5px -2px rgba(38, 56, 105, 0.18);
+  }
+  .card.featured .features-list li :global(svg) { color: var(--color-secondary); }
+
+  .plan-cta {
+    margin-top: auto;
+    text-align: center;
+    padding: 13px 20px;
+    border-radius: var(--radius-pill);
+    background: var(--neu-bg);
+    box-shadow: var(--btn-rest);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-primary);
+    transition: box-shadow var(--btn-ease), transform var(--btn-ease);
+  }
+  .plan-cta:hover, .plan-cta:active {
+    transform: translateY(1px);
+    box-shadow: var(--btn-press);
+  }
+
+  .plan-cta.primary {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: var(--btn-rest-primary);
+  }
+  .plan-cta.primary:hover, .plan-cta.primary:active {
+    box-shadow: var(--btn-press-primary);
+  }
+
+  @media (max-width: 900px) {
+    .bento { grid-template-columns: 1fr; }
+    .card { grid-column: span 1 !important; transform: none; }
+    .card.featured { transform: none; }
+  }
+</style>

@@ -1,0 +1,175 @@
+---
+
+---
+
+<header class="nav">
+    <div class="container nav-inner">
+        <a href="#" class="logo">
+            <span class="logo-text">Providers</span>
+        </a>
+
+        <nav class="links" id="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#planes">Planes</a>
+            <a href="#empresas">Empresas</a>
+            <a href="#soporte">Soporte</a>
+        </nav>
+
+        <a href="#contratar" class="cta-btn">Contratar</a>
+
+        <button
+            class="hamburger"
+            aria-label="Menú"
+            aria-expanded="false"
+            id="nav-toggle"
+        >
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const t = document.getElementById("nav-toggle");
+        const l = document.getElementById("nav-links");
+        if (!t || !l) return;
+        t.addEventListener("click", () => {
+            const open = l.classList.toggle("open");
+            t.setAttribute("aria-expanded", String(open));
+        });
+    });
+</script>
+
+<style>
+    .nav {
+        position: fixed;
+        top: 16px;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        padding: 0 24px;
+    }
+
+    .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px 12px 24px;
+        gap: 24px;
+        border-radius: var(--radius-pill);
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        box-shadow:
+            0 12px 30px -12px rgba(38, 56, 105, 0.38),
+            inset 0 1px 1px rgba(255, 255, 255, 0.9);
+        position: relative;
+    }
+
+    .logo,
+    .links,
+    .cta-btn,
+    .hamburger {
+        position: relative;
+        z-index: 1;
+    }
+
+    .logo {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        color: var(--color-heading);
+    }
+
+    .logo-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        display: inline-block;
+        box-shadow: var(--shadow-primary-sm);
+    }
+
+    .links {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+    }
+
+    .links a {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-text-muted);
+        transition: color 0.15s ease;
+    }
+    .links a:hover {
+        color: var(--color-primary);
+    }
+
+    .cta-btn {
+        background: var(--color-primary);
+        color: #fff;
+        padding: 11px 22px;
+        border-radius: var(--radius-pill);
+        font-weight: 600;
+        font-size: 14px;
+        box-shadow: var(--btn-rest-primary);
+        transition:
+            box-shadow var(--btn-ease),
+            transform var(--btn-ease);
+    }
+    .cta-btn:hover,
+    .cta-btn:active {
+        transform: translateY(1px);
+        box-shadow: var(--btn-press-primary);
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        border-radius: 50%;
+        background: var(--neu-bg);
+        box-shadow: var(--shadow-raised-sm);
+        transition: box-shadow 0.15s ease;
+    }
+    .hamburger:active {
+        box-shadow: var(--shadow-pressed-sm);
+    }
+    .hamburger span {
+        width: 20px;
+        height: 2px;
+        background: var(--color-text-muted);
+        border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .links {
+            display: none;
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background: var(--neu-bg);
+            padding: 20px 26px;
+            gap: 16px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-raised);
+        }
+        .links.open {
+            display: flex;
+        }
+        .hamburger {
+            display: flex;
+        }
+        .cta-btn {
+            display: none;
+        }
+    }
+</style>

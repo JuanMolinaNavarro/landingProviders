@@ -1,0 +1,187 @@
+---
+---
+<section class="hero-wrap" id="inicio">
+  <div class="container hero-inner">
+    <p class="eyebrow">CONECTIVIDAD EMPRESARIAL</p>
+
+    <h1 class="title">
+      Internet <span class="t-blue">rápido</span>,<br />
+      soporte <span class="t-violet">confiable</span>
+    </h1>
+
+    <p class="subtitle">
+      Fibra dedicada simétrica, baja latencia y SLA empresarial.
+      La conectividad que tu negocio necesita para no detenerse nunca.
+    </p>
+
+    <div class="cta-row">
+      <a href="#planes" class="cta-primary">Ver planes</a>
+      <a href="#contacto" class="cta-secondary">Hablar con ventas</a>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat">
+        <div class="stat-num blue">99.9%</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num violet">10 Gbps</div>
+        <div class="stat-label">Velocidad</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num blue">24/7</div>
+        <div class="stat-label">Soporte</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-wrap {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    padding: 150px 0 92px;
+    isolation: isolate;
+  }
+
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .title {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+    max-width: 900px;
+  }
+  .t-blue { color: var(--color-primary); }
+  .t-violet { color: var(--color-secondary); }
+
+  .subtitle {
+    color: var(--color-text-muted);
+    max-width: 460px;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .cta-primary {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: var(--btn-rest-primary);
+    transition: box-shadow var(--btn-ease), transform var(--btn-ease);
+  }
+  .cta-primary:hover, .cta-primary:active {
+    transform: translateY(1px);
+    box-shadow: var(--btn-press-primary);
+  }
+
+  .cta-secondary {
+    background: var(--neu-bg);
+    color: var(--color-secondary);
+    padding: 15px 30px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: var(--btn-rest);
+    transition: box-shadow var(--btn-ease), transform var(--btn-ease), color var(--btn-ease);
+  }
+  .cta-secondary:hover, .cta-secondary:active {
+    transform: translateY(1px);
+    box-shadow: var(--btn-press);
+    color: var(--color-secondary-dark);
+  }
+
+  .stats-strip {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    max-width: 720px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--glass-shadow);
+    padding: 8px;
+  }
+
+  .stat {
+    padding: 22px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .stat + .stat::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, transparent, var(--neu-dark), transparent);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .stat-num {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .stat-num.blue   { color: var(--color-primary); }
+  .stat-num.violet { color: var(--color-secondary); }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .hero-wrap { padding: 120px 0 60px; }
+    .stats-strip { grid-template-columns: 1fr; padding: 6px 14px; }
+    .stat + .stat::before {
+      left: 15%;
+      right: 15%;
+      top: 0;
+      bottom: auto;
+      width: auto;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neu-dark), transparent);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+  }
+</style>

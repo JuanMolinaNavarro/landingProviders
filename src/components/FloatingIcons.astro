@@ -1,0 +1,118 @@
+---
+// 4 iconos 3D (PNG) distribuidos equitativamente por la página, detrás del
+// contenido (z-index -1, sobre el campo en -2). Flotación sólo por transform.
+const SIZE = 240; // mismo tamaño que los logos de wifi/globe del hero
+const icons = [
+    {
+        name: "wifi",
+        top: 6,
+        side: "right",
+        off: 3,
+        size: SIZE,
+        rot: -8,
+        delay: 0.0,
+        dur: 8.0,
+    },
+    {
+        name: "singal",
+        top: 20,
+        side: "left",
+        off: 3,
+        size: SIZE,
+        rot: 8,
+        delay: 1.2,
+        dur: 9.0,
+    },
+    {
+        name: "router",
+        top: 34,
+        side: "right",
+        off: 3,
+        size: SIZE,
+        rot: -9,
+        delay: 2.0,
+        dur: 8.5,
+    },
+    {
+        name: "speedometer",
+        top: 48,
+        side: "left",
+        off: 3,
+        size: SIZE,
+        rot: 8,
+        delay: 0.6,
+        dur: 7.5,
+    },
+    {
+        name: "globe",
+        top: 62,
+        side: "right",
+        off: 4,
+        size: SIZE,
+        rot: -10,
+        delay: 1.6,
+        dur: 9.0,
+    },
+    {
+        name: "antenna",
+        top: 75,
+        side: "left",
+        off: 3,
+        size: SIZE,
+        rot: 9,
+        delay: 2.6,
+        dur: 8.0,
+    },
+];
+---
+
+<div class="floaty-layer" aria-hidden="true">
+    {
+        icons.map((ic) => (
+            <img
+                src={`/icons3d/${ic.name}.png`}
+                alt=""
+                decoding="async"
+                class="floaty"
+                style={`top:${ic.top}%; ${ic.side}:${ic.off}%; width:${ic.size}px; --rot:${ic.rot}deg; --delay:${ic.delay}s; --dur:${ic.dur}s;`}
+            />
+        ))
+    }
+</div>
+
+<style>
+    .floaty-layer {
+        position: absolute;
+        inset: 0;
+        z-index: -1; /* detrás del contenido, sobre el campo (-2) */
+        pointer-events: none;
+        overflow: hidden; /* evita scroll horizontal por iconos junto al borde */
+    }
+    .floaty {
+        position: absolute;
+        display: block;
+        height: auto;
+        transform: rotate(var(--rot, 0deg));
+        animation: floatDeco var(--dur, 8s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+    }
+    @keyframes floatDeco {
+        0%,
+        100% {
+            transform: rotate(var(--rot, 0deg)) translateY(0);
+        }
+        50% {
+            transform: rotate(var(--rot, 0deg)) translateY(-18px);
+        }
+    }
+    @media (max-width: 1024px) {
+        .floaty {
+            width: 170px !important;
+        }
+    }
+    @media (max-width: 640px) {
+        .floaty {
+            width: 120px !important;
+        }
+    }
+</style>

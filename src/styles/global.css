@@ -1,0 +1,160 @@
+:root {
+  /* ===== Brand accents (sin cambios) ===== */
+  --color-primary:        #378ADD;
+  --color-primary-dark:   #2b72bd;
+  --color-secondary:      #7c3aed;
+  --color-secondary-dark: #6425d0;
+
+  /* ===== Superficie neumórfica (gris frío corporativo) ===== */
+  --neu-bg:      #e6ebf4;
+  --neu-bg-in:   #e1e7f1; /* fondo levemente más hundido para zonas inset */
+  --neu-light:   #ffffff; /* luz superior-izquierda */
+  --neu-dark:    #c2cddd; /* sombra inferior-derecha, azul-gris */
+  /* mismos colores en RGB para poder animar su alpha (ver tokens de botón) */
+  --neu-light-rgb: 255, 255, 255;
+  --neu-dark-rgb:  194, 205, 221;
+
+  /* legado — apuntan a la superficie neumórfica para mantener coherencia */
+  --color-hero-bg:  var(--neu-bg);
+  --color-card-bg:  var(--neu-bg);
+  --color-surface:  var(--neu-bg);
+
+  /* ===== Texto ===== */
+  --color-text:        #1a1230;
+  --color-heading:     #1a1f33;
+  --color-text-muted:  #4c5573; /* slate corporativo, buena lectura sobre el gris */
+
+  /* ===== Radios ===== */
+  --radius-card:  22px;
+  --radius-sm:    14px;
+  --radius-pill:  999px;
+
+  /* ===== Sombras neumórficas ===== */
+  --shadow-raised:     8px 8px 18px var(--neu-dark), -8px -8px 18px var(--neu-light);
+  --shadow-raised-sm:  5px 5px 12px var(--neu-dark), -5px -5px 12px var(--neu-light);
+  --shadow-raised-lg:  16px 16px 34px var(--neu-dark), -13px -13px 28px var(--neu-light);
+  --shadow-pressed:    inset 6px 6px 12px var(--neu-dark), inset -6px -6px 12px var(--neu-light);
+  --shadow-pressed-sm: inset 3px 3px 7px var(--neu-dark), inset -3px -3px 7px var(--neu-light);
+
+  /* Acento azul en relieve (botón primario) */
+  --shadow-primary:    6px 6px 14px rgba(43, 108, 179, 0.40), -6px -6px 14px var(--neu-light);
+  --shadow-primary-sm: 4px 4px 10px rgba(43, 108, 179, 0.40), -4px -4px 10px var(--neu-light);
+
+  /* ===== Botones: morphing fluido relieve → presión =====
+     Se mantienen SIEMPRE 4 sombras (2 exteriores + 2 interiores) con el
+     mismo color por posición; sólo cambian offset/blur/alpha. Así el
+     box-shadow interpola suave de "elevado" a "hundido" (el keyword inset
+     no se puede animar, por eso las 4 sombras coexisten en ambos estados). */
+  --btn-rest:
+    6px 6px 14px   rgba(var(--neu-dark-rgb), 1),
+    -6px -6px 14px rgba(var(--neu-light-rgb), 1),
+    inset 0 0 0    rgba(var(--neu-dark-rgb), 0),
+    inset 0 0 0    rgba(var(--neu-light-rgb), 0);
+  --btn-press:
+    0 0 0 rgba(var(--neu-dark-rgb), 0),
+    0 0 0 rgba(var(--neu-light-rgb), 0),
+    inset 6px 6px 13px   rgba(var(--neu-dark-rgb), 1),
+    inset -6px -6px 13px rgba(var(--neu-light-rgb), 1);
+
+  /* Variante azul (botón primario), misma técnica con sombras de color */
+  --btn-rest-primary:
+    6px 6px 14px   rgba(43, 108, 179, 0.42),
+    -6px -6px 14px rgba(255, 255, 255, 1),
+    inset 0 0 0    rgba(30, 84, 148, 0),
+    inset 0 0 0    rgba(140, 190, 240, 0);
+  --btn-press-primary:
+    0 0 0 rgba(43, 108, 179, 0),
+    0 0 0 rgba(255, 255, 255, 0),
+    inset 5px 5px 13px   rgba(30, 84, 148, 0.6),
+    inset -5px -5px 13px rgba(140, 190, 240, 0.5);
+
+  /* Curva y duración de la transición (fluida, con asentamiento suave) */
+  --btn-ease: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ===== Cristal: contenedores traslúcidos y voluminosos ===== */
+  --glass-bg:        linear-gradient(150deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.40));
+  --glass-bg-strong: linear-gradient(150deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.54));
+  --glass-blur:      blur(20px) saturate(175%);
+  --glass-border:    rgba(255, 255, 255, 0.75);
+  --glass-radius:    26px;
+  /* volumen = sombra grande y difusa + brillo interior en el borde superior */
+  --glass-shadow:
+    0 22px 46px -18px rgba(38, 56, 105, 0.42),
+    0 6px 16px -8px  rgba(38, 56, 105, 0.22),
+    inset 0 1px 1px  rgba(255, 255, 255, 0.90),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.22);
+  --glass-shadow-hover:
+    0 34px 64px -20px rgba(38, 56, 105, 0.50),
+    0 12px 24px -10px rgba(38, 56, 105, 0.28),
+    inset 0 1px 1px   rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px  rgba(255, 255, 255, 0.25);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--color-text);
+  background: var(--neu-bg);
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img, svg { display: block; max-width: 100%; }
+
+h1, h2, h3, h4 { margin: 0; line-height: 1.15; letter-spacing: -0.02em; color: var(--color-heading); }
+p { margin: 0; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Campo ambiental CONTINUO detrás de todo el sitio: una malla densa de glows
+   de marca + puntos, en un ÚNICO elemento que abarca toda la página. Al no
+   estar dividido por sección, no hay bordes donde el patrón se reinicie →
+   se elimina el "tearing"/costuras entre componentes. Las secciones van
+   transparentes y el cristal refracta este campo. */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-color: var(--neu-bg);
+  background-image:
+    radial-gradient(920px 760px at 6% 3%,   rgba(124, 58, 237, 0.34), transparent 60%),
+    radial-gradient(1000px 820px at 96% 12%, rgba(55, 138, 221, 0.34), transparent 62%),
+    radial-gradient(960px 820px at 3% 38%,   rgba(55, 138, 221, 0.30), transparent 60%),
+    radial-gradient(1000px 840px at 98% 60%, rgba(124, 58, 237, 0.32), transparent 62%),
+    radial-gradient(960px 840px at 7% 82%,   rgba(124, 58, 237, 0.30), transparent 62%),
+    radial-gradient(1020px 860px at 97% 97%, rgba(55, 138, 221, 0.30), transparent 62%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.55) 1.2px, transparent 1.6px),
+    radial-gradient(circle, rgba(150, 166, 194, 0.45) 1.2px, transparent 1.6px);
+  background-repeat:
+    no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+  background-size:
+    100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 24px 24px, 24px 24px;
+  background-position:
+    0 0, 0 0, 0 0, 0 0, 0 0, 0 0, -0.5px -0.5px, 0.5px 0.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

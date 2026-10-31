@@ -1,0 +1,64 @@
+---
+// Iconos 3D (ISP) desperdigados por toda la página como capa decorativa.
+// Van detrás de todo el contenido (z-index: -1, sobre el campo ambiental que
+// está en -2), así nunca tapan texto y el cristal los refracta. Se anima solo
+// `transform` (flotación) → compositor/GPU, sin reflow ni repintado.
+const deco = [
+  { name: 'router',  top: 5,  side: 'left',  off: 3, size: 158, rot: -10, delay: 0.0, dur: 8.0, sm: true  },
+  { name: 'globe',   top: 9,  side: 'right', off: 4, size: 124, rot: 8,   delay: 1.4, dur: 9.0, sm: false },
+  { name: 'bolt',    top: 15, side: 'left',  off: 5, size: 116, rot: 12,  delay: 0.6, dur: 7.0, sm: false },
+  { name: 'wifi',    top: 21, side: 'right', off: 4, size: 140, rot: 0,   delay: 2.1, dur: 8.5, sm: true  },
+  { name: 'cloud',   top: 29, side: 'left',  off: 3, size: 134, rot: 10,  delay: 1.0, dur: 9.0, sm: false },
+  { name: 'shield',  top: 36, side: 'right', off: 5, size: 148, rot: -12, delay: 2.6, dur: 7.5, sm: false },
+  { name: 'server',  top: 44, side: 'left',  off: 4, size: 122, rot: 8,   delay: 0.4, dur: 8.0, sm: true  },
+  { name: 'headset', top: 51, side: 'right', off: 3, size: 138, rot: -10, delay: 1.8, dur: 9.0, sm: false },
+  { name: 'wifi',    top: 59, side: 'left',  off: 6, size: 112, rot: 0,   delay: 3.0, dur: 7.0, sm: false },
+  { name: 'bolt',    top: 67, side: 'right', off: 4, size: 132, rot: -8,  delay: 1.2, dur: 8.5, sm: true  },
+  { name: 'globe',   top: 76, side: 'left',  off: 3, size: 126, rot: 10,  delay: 2.3, dur: 9.0, sm: false },
+  { name: 'router',  top: 85, side: 'right', off: 5, size: 146, rot: -12, delay: 0.8, dur: 8.0, sm: false },
+  { name: 'shield',  top: 93, side: 'left',  off: 5, size: 120, rot: 8,   delay: 1.6, dur: 7.5, sm: true  },
+];
+---
+<div class="scatter" aria-hidden="true">
+  {deco.map((d) => (
+    <img
+      src={`/icons3d/${d.name}.svg`}
+      alt=""
+      width={d.size}
+      height={Math.round((d.size * 140) / 128)}
+      decoding="async"
+      class:list={["deco", { "deco--sm-hide": !d.sm }]}
+      style={`top:${d.top}%; ${d.side}:${d.off}%; width:${d.size}px; --rot:${d.rot}deg; --delay:${d.delay}s; --dur:${d.dur}s;`}
+    />
+  ))}
+</div>
+
+<style>
+  .scatter {
+    position: absolute;
+    inset: 0;
+    z-index: -1;          /* sobre el campo (-2), debajo de todo el contenido */
+    pointer-events: none;
+    overflow: hidden;     /* evita scroll horizontal por iconos junto al borde */
+  }
+
+  .deco {
+    position: absolute;
+    display: block;
+    height: auto;
+    transform: rotate(var(--rot, 0deg));
+    animation: floaty var(--dur, 8s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  /* solo se anima transform → hilo del compositor (GPU), sin layout/paint */
+  @keyframes floaty {
+    0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0); }
+    50%      { transform: rotate(var(--rot, 0deg)) translateY(-22px); }
+  }
+
+  @media (max-width: 760px) {
+    .deco { opacity: 0.85; }
+    .deco--sm-hide { display: none; }  /* menos iconos en mobile */
+  }
+</style>
